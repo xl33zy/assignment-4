@@ -52,6 +52,21 @@ public class MyHashTable<K, V> {
         }
     }
 
+    public boolean containsKey(K key) {
+        int hash = getHash(key);
+        ArrayList<Node<K, V>> bucket = buckets.get(hash);
+        for (Node<K, V> node : bucket) {
+            if (node.key.equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int getHash(K key) {
+        return key.hashCode() % buckets.size();
+    }
+
     //returns size
     public int size() {
         return size;
@@ -63,6 +78,20 @@ public class MyHashTable<K, V> {
             ArrayList<Node<K, V>> bucket = buckets.get(i);
             System.out.println("Bucket " + i + ": " + bucket.size() + " elements");
         }
+    }
+
+    public MyHashTable<K, V> cloneTable() {
+        MyHashTable<K, V> newTable = new MyHashTable<>();
+
+        for (ArrayList<Node<K, V>> bucket : buckets) {
+            for (Node<K, V> node : bucket) {
+                K key = node.key;
+                V value = node.value;
+                newTable.put(key, value);
+            }
+        }
+
+        return newTable;
     }
 
     //defines a private static Node class with two template types K and V for key and value respectively. It has a constructor to initialize the key and value

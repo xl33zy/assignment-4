@@ -1,17 +1,74 @@
 import java.util.Random;
 import java.util.Objects;
 
+
 public class Main {
+    public static MyHashTable<String, Integer> hashTable;
+
     //creates a new MyHashTable instance and generates 10000 random key-value pairs using MyTestingClass and Student classes as key and value respectively. Finally, it prints the contents of the hash table's buckets
     public static void main(String[] args) {
-        MyHashTable<MyTestingClass, Student> table = new MyHashTable<>();
-        Random random = new Random();
-        for (int i = 0; i < 10000; i++) {
-            MyTestingClass key = new MyTestingClass(Integer.toString(random.nextInt(1000)));
-            Student value = new Student(5, "Trututu Barababa");
-            table.put(key, value);
-        }
-        table.printBuckets();
+//        MyHashTable<MyTestingClass, Student> table = new MyHashTable<>();
+//        Random random = new Random();
+//        for (int i = 0; i < 10000; i++) {
+//            MyTestingClass key = new MyTestingClass(Integer.toString(random.nextInt(1000)));
+//            Student value = new Student(5, "Trututu Barababa");
+//            table.put(key, value);
+//        }
+//        table.printBuckets();
+
+        testTwoTables();
+    }
+
+    private static void testTwoTables() {
+        testFirstTable();
+        cloneAndTestTable();
+    }
+
+    private static void testFirstTable() {
+        hashTable = new MyHashTable<>();
+
+        hashTable.put("One", 1);
+        hashTable.put("Two", 2);
+        hashTable.put("Three", 3);
+        hashTable.put("Four", 4);
+        hashTable.put("Five", 5);
+        hashTable.put("Six", 6);
+        hashTable.put("Seven", 7);
+        hashTable.put("Eight", 8);
+        hashTable.put("Nine", 9);
+        hashTable.put("Ten", 10);
+
+        System.out.println("Value for key 'Three': " + hashTable.get("Three"));  // Expected output: 3
+        System.out.println("Value for key 'Two': " + hashTable.get("Two"));  // Expected output: 2
+        System.out.println("Value for key 'Eleven': " + hashTable.get("Eleven"));  // Expected output: null
+
+        hashTable.remove("Four");
+        System.out.println("Value for key 'Four' after removal: " + hashTable.get("Four"));  // Expected output: null
+
+        System.out.println("Contains key 'Three': " + hashTable.containsKey("Three"));  // Expected output: true
+        System.out.println("Contains key 'Eleven': " + hashTable.containsKey("Eleven"));  // Expected output: false
+
+        System.out.println("Size of hash table: " + hashTable.size());  // Expected output: 4
+
+        hashTable.printBuckets();
+    }
+
+    private static void cloneAndTestTable() {
+        MyHashTable<String, Integer> newHashTable = hashTable.cloneTable();
+
+        System.out.println("Value for key 'Three': " + newHashTable.get("Three"));  // Expected output: 3
+        System.out.println("Value for key 'Two': " + newHashTable.get("Two"));  // Expected output: 2
+        System.out.println("Value for key 'Eleven': " + newHashTable.get("Eleven"));  // Expected output: null
+
+        newHashTable.remove("Four");
+        System.out.println("Value for key 'Four' after removal: " + newHashTable.get("Four"));  // Expected output: null
+
+        System.out.println("Contains key 'Three': " + newHashTable.containsKey("Three"));  // Expected output: true
+        System.out.println("Contains key 'Eleven': " + newHashTable.containsKey("Eleven"));  // Expected output: false
+
+        System.out.println("Size of hash table: " + newHashTable.size());  // Expected output: 4
+
+        newHashTable.printBuckets();
     }
 }
 
